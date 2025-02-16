@@ -4,9 +4,7 @@ import os
 import random
 import numpy as np
 from psychopy import visual,event,core,gui
-from functions import make_incongruent, generate_trials
-
-stimuli = ['red', 'orange', 'yellow', 'green', 'blue']
+from functions import make_incongruent, generate_trials, get_runtime_vars
 
 win = visual.Window([800,600],color="gray", units='pix',checkTiming=False)
 placeholder = visual.Rect(win,width=180,height=80, fillColor="lightgray",lineColor="black", lineWidth=6,pos=[0,0])
@@ -22,7 +20,17 @@ instruction.autoDraw = True
 RT=[]
 timer = core.Clock() #add timer
 
+stimuli = ['red', 'orange', 'yellow', 'green', 'blue']
 trial_types=['c','ic']
+
+#get runtime variables
+runtime_vars_order =  ['subj_code','seed','num_reps']
+runtime_vars= get_runtime_vars({'subj_code':'stroop_101', 'seed':123, 'num_reps':25}, runtime_vars_order)
+print(runtime_vars)
+
+# generate trials
+generate_trials(runtime_vars['subj_code'],runtime_vars['seed'],stimuli,trial_types)
+
 
 while True:
     cur_word = random.choice(stimuli) #set the current stiuli(word)

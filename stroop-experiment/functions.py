@@ -65,3 +65,15 @@ def generate_trials(subj_code, seed, stimuli:list, trial_types:list, num_repetit
 
     #close the file
     f.close()
+
+    #runtime variables
+def get_runtime_vars(vars_to_get,order,exp_version="stroop_experiment_assignment"):
+    #Get run time variables, see http://www.psychopy.org/api/gui.html for explanation
+    from psychopy import core, gui
+    core.wait(0.1) #added for my laptop compatibility (Windows)
+    infoDlg = gui.DlgFromDict(dictionary=vars_to_get, title=exp_version, order=order)
+    core.wait(0.1) #added for my laptop compatibility (Windows)
+    if infoDlg.OK:
+        return vars_to_get
+    else: 
+        print('User Cancelled')
