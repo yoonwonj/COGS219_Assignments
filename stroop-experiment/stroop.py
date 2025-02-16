@@ -47,6 +47,10 @@ for cur_trial in trial_list:
 
     #set word_stim object
     word_stim.setText(cur_word)
+    if cur_orient=="upside_down":
+        word_stim.ori = 180  # Rotate text 180 degrees
+    else:
+        word_stim.ori = 0  # Keep normal orientation
     word_stim.setColor(cur_color)
 
     #draw placeholder, instruction, and fixation cross
