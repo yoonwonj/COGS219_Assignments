@@ -21,10 +21,26 @@ instruction.autoDraw = True
 RT=[]
 timer = core.Clock() #add timer
 
+def make_incongruent(cur_word, stimuli):
+    temp_stimuli=stimuli.copy()
+    temp_stimuli.remove(cur_word)
+    incongruent_color=random.choice(temp_stimuli) # randomly select incongruent key among non-answer keys
+
+    return incongruent_color
+
+trial_type=['c','ic']
+
 while True:
-    cur_stim = random.choice(stimuli) #set the current stimuli
-    word_stim.setText(cur_stim)
-    word_stim.setColor(cur_stim)
+    cur_word = random.choice(stimuli) #set the current stiuli(word)
+    trial=random.choice(trial_type)
+
+    if trial =='c': #set the current stimuli(color)
+        cur_color=cur_word
+    else:
+        cur_color=make_incongruent(cur_word,stimuli)
+
+    word_stim.setText(cur_word)
+    word_stim.setColor(cur_color)
     placeholder.draw()
     fixation_cross.draw() #draw placeholder, instruction, and fixation cross
     win.flip()
@@ -45,7 +61,7 @@ while True:
             core.quit()
         else: #if the key pressed was not q
             cur_rt= timer.getTime() #get response time (for button press)
-            if keypress[0]!=cur_stim[0]: #if the key pressed is incorrect
+            if keypress[0]!=cur_word[0]: #if the key pressed is incorrect
                 feedback_incorrect.draw() #incorrect feedback
                 win.flip()
                 core.wait(1)
