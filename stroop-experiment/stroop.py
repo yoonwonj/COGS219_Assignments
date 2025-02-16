@@ -4,7 +4,7 @@ import os
 import random
 import numpy as np
 from psychopy import visual,event,core,gui
-from functions import make_incongruent, generate_trials, get_runtime_vars
+from functions import make_incongruent, generate_trials, get_runtime_vars, import_trials
 
 win = visual.Window([800,600],color="gray", units='pix',checkTiming=False)
 placeholder = visual.Rect(win,width=180,height=80, fillColor="lightgray",lineColor="black", lineWidth=6,pos=[0,0])
@@ -29,9 +29,15 @@ runtime_vars= get_runtime_vars({'subj_code':'stroop_101', 'seed':123, 'num_reps'
 print(runtime_vars)
 
 # generate trials
-generate_trials(runtime_vars['subj_code'],runtime_vars['seed'],stimuli,trial_types)
+generate_trials(runtime_vars['subj_code'],runtime_vars['seed'],stimuli,trial_types) # this line added in "Part2-runtie-variable" commit
 
-
+# read in trial information
+script_dir = os.path.dirname(os.path.abspath(__file__))
+trial_path= os.path.join(script_dir,'trials',runtime_vars['subj_code']+'_trials.csv')
+trial_list = import_trials(trial_path)
+print(trial_list[:5])
+ 
+"""
 while True:
     cur_word = random.choice(stimuli) #set the current stiuli(word)
     trial=random.choice(trial_types)
@@ -79,6 +85,6 @@ while True:
         feedback_slow.draw()
         win.flip()
         core.wait(1)
-
+"""
 
 

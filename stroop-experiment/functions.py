@@ -19,7 +19,6 @@ def generate_trials(subj_code, seed, stimuli:list, trial_types:list, num_repetit
     '''
     import os
     import random
-    import make_incongruent
 
     # define general parameters and functions here
     separator=","
@@ -33,12 +32,14 @@ def generate_trials(subj_code, seed, stimuli:list, trial_types:list, num_repetit
     orientations=["unrotated","upside_down"]
     num_repetitions= int(num_repetitions)
     
-    # create a trials folder if it doesn't already exist
+    # create a trials folder if it doesn't already exist\
+    script_dir = os.path.dirname(os.path.abspath(__file__))
     try:
-        os.mkdir('trials')
+        os.mkdir(os.path.join(script_dir,'trials')) # file path fixed to match windows computer
     except FileExistsError:
         print('Trials directory exists; proceeding to open file')
-    f= open(f"trials/{subj_code}_trials.csv","w") # open the file
+    
+    f = open(os.path.join(script_dir,'trials',subj_code+'_trials.csv'),'w') # file path fixed to match windows computer
 
     #write header
     header = separator.join(["subj_code","seed","word", 'color','trial_type','orientation']) # define header
@@ -61,7 +62,7 @@ def generate_trials(subj_code, seed, stimuli:list, trial_types:list, num_repetit
 
     # write the trials information to a file
     for cur_trial in trial_data:
-        f.write(separator.join(map(str,cur_trial)+'\n'))
+        f.write(separator.join(map(str,cur_trial))+'\n')
 
     #close the file
     f.close()
@@ -77,3 +78,17 @@ def get_runtime_vars(vars_to_get,order,exp_version="stroop_experiment_assignment
         return vars_to_get
     else: 
         print('User Cancelled')
+
+def import_trials (trial_filename, col_names=None, separator=','):
+    trial_file = open(trial_filename, 'r')
+ 
+    if col_names is None:
+        # Assume the first row contains the column names
+        col_names = trial_file.readline().rstrip().split(separator)
+    trials_list = []
+    for cur_trial in trial_file:
+        cur_trial = cur_trial.rstrip().split(separator)
+        assert len(cur_trial) == len(col_names) # make sure the number of column names = number of columns
+        trial_dict = dict(zip(col_names, cur_trial))
+        trials_list.append(trial_dict)
+    return trials_list
