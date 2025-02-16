@@ -11,7 +11,7 @@ placeholder = visual.Rect(win,width=180,height=80, fillColor="lightgray",lineCol
 word_stim = visual.TextStim(win,text="", height=40, color="black",pos=[0,0])
 instruction = visual.TextStim(win,text="Press the first letter of the ink color", height=20, color="black",pos=[0,-200])
 fixation_cross = visual.TextStim(win, text="+", height=15, color="black", pos=[0,0]) #set fixation cross: set height as 15 and color as black (as indicated in the instruction)
-feedback_incorrect= visual.TextStim(win,text="Incorrect", height=20, color="black", pos=[0,0])
+feedback_incorrect= visual.TextStim(win,text="Incorrect", height=20, color="black", pos=[0,0]) #this line was already added in "Part1-RT-correction2", and therefore did not show up on "Part1-feedback" commit.
 
 instruction.autoDraw = True
 
