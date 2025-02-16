@@ -28,11 +28,13 @@ while True:
     placeholder.draw()
     word_stim.draw() #draw placeholder, instruction, and stiuli
     win.flip()
-    core.wait(1.0)
-    placeholder.draw()
-    win.flip() #remove the stimuli
-    core.wait(.15) #let that state stay for .15 seconds
-
-    if event.getKeys(['q']):
+    keypress= event.waitKeys(keyList=['r','o','y','g','b','q'])
+    #print(keypress)
+    if keypress[0]=='q':
         win.close()
         core.quit()
+    else:
+        placeholder.draw()
+        win.flip() #remove the stimuli
+        core.wait(.15) #let that state stay for .15 seconds
+
