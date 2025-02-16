@@ -31,17 +31,18 @@ while True:
     core.wait(.5) #and let that state stay removed for .5 seconds before the presentation of the stimuli
     placeholder.draw()
     word_stim.draw() #draw placeholder, instruction, and stiuli
-    timer.reset() #start timing=reset the timer(right after we draw word_stim)
     win.flip()
+    timer.reset() #start timing=reset the timer(right after we draw word_stim)
     keypress= event.waitKeys(keyList=['r','o','y','g','b','q'])
     cur_rt= timer.getTime() #get the RT (for button press)
     #print(keypress)
     if keypress[0]=='q':
+        print(RT)
         win.close()
         core.quit()
     else:
-        RT.append(cur_rt)
-        #print(RT) #append cur_rt to RT only when the key pressed is not 'q'
+        RT.append(cur_rt) #append cur_rt to RT only when the key pressed is not 'q'
+        print(RT)
         placeholder.draw()
         win.flip() #remove the stimuli
         core.wait(.15) #let that state stay for .15 seconds
