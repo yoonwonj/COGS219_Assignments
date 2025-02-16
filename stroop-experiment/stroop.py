@@ -14,6 +14,10 @@ fixation_cross = visual.TextStim(win, text="+", height=15, color="black", pos=[0
 
 instruction.autoDraw = True
 
+#list for storing RTs
+RT=[]
+timer = core.Clock() #add timer
+
 while True:
     cur_stim = random.choice(stimuli) #set the current stimuli
     word_stim.setText(cur_stim)
@@ -27,13 +31,17 @@ while True:
     core.wait(.5) #and let that state stay removed for .5 seconds before the presentation of the stimuli
     placeholder.draw()
     word_stim.draw() #draw placeholder, instruction, and stiuli
+    timer.reset() #start timing=reset the timer(right after we draw word_stim)
     win.flip()
     keypress= event.waitKeys(keyList=['r','o','y','g','b','q'])
+    cur_rt= timer.getTime() #get the RT (for button press)
     #print(keypress)
     if keypress[0]=='q':
         win.close()
         core.quit()
     else:
+        RT.append(cur_rt)
+        #print(RT) #append cur_rt to RT only when the key pressed is not 'q'
         placeholder.draw()
         win.flip() #remove the stimuli
         core.wait(.15) #let that state stay for .15 seconds
