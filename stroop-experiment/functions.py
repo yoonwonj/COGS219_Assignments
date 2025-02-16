@@ -51,7 +51,7 @@ def generate_trials(subj_code, seed, stimuli:list, trial_types:list, num_repetit
         for cur_trial_type in trial_types:
             for cur_orient in orientations:
                 cur_word= random.choice(stimuli)
-                if cur_trial_type == 'incongruent':
+                if cur_trial_type == 'c': #fixed error
                     cur_color= make_incongruent(cur_word, stimuli)
                 else:
                     cur_color= cur_word

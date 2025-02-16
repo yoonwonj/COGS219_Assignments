@@ -36,30 +36,39 @@ script_dir = os.path.dirname(os.path.abspath(__file__))
 trial_path= os.path.join(script_dir,'trials',runtime_vars['subj_code']+'_trials.csv')
 trial_list = import_trials(trial_path)
 print(trial_list[:5])
- 
-"""
-while True:
-    cur_word = random.choice(stimuli) #set the current stiuli(word)
-    trial=random.choice(trial_types)
 
-    if trial =='c': #set the current stimuli(color)
-        cur_color=cur_word
-    else:
-        cur_color=make_incongruent(cur_word,stimuli)
+# new loop
+for cur_trial in trial_list:
+    #set variables from cur_trial
+    cur_word=cur_trial['word']
+    cur_color=cur_trial['color']
+    cur_trial_type=cur_trial['trial_type']
+    cur_orient=cur_trial['orientation']
 
+    #set word_stim object
     word_stim.setText(cur_word)
     word_stim.setColor(cur_color)
+
+    #draw placeholder, instruction, and fixation cross
     placeholder.draw()
-    fixation_cross.draw() #draw placeholder, instruction, and fixation cross
+    fixation_cross.draw() 
     win.flip()
     core.wait(.5) #let that state stay for .5 seconds
-    placeholder.draw() #remove filxation cross
+
+    #remove filxation cross and let that state stay removed for .5 seconds before the presentation of the stimuli
+    placeholder.draw() 
     win.flip()
-    core.wait(.5) #and let that state stay removed for .5 seconds before the presentation of the stimuli
+    core.wait(.5)
+
+    #draw placeholder, instruction, and stimuli
     placeholder.draw()
-    word_stim.draw() #draw placeholder, instruction, and stimuli
+    word_stim.draw() 
     win.flip()
-    timer.reset() #start timing=reset the timer(right after we draw word_stim)
+
+    #after presentation of the stinui, start timing=reset the timer right away
+    timer.reset() 
+
+    #get response
     keypress= event.waitKeys(keyList=['r','o','y','g','b','q'],maxWait=2)
     if keypress: #if key was pressed
         if keypress[0]=='q': #if the key pressed was q
@@ -85,6 +94,3 @@ while True:
         feedback_slow.draw()
         win.flip()
         core.wait(1)
-"""
-
-
