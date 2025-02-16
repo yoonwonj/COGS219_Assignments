@@ -4,6 +4,7 @@ import os
 import random
 import numpy as np
 from psychopy import visual,event,core,gui
+from functions import make_incongruent, generate_trials
 
 stimuli = ['red', 'orange', 'yellow', 'green', 'blue']
 
@@ -21,18 +22,11 @@ instruction.autoDraw = True
 RT=[]
 timer = core.Clock() #add timer
 
-def make_incongruent(cur_word, stimuli):
-    temp_stimuli=stimuli.copy()
-    temp_stimuli.remove(cur_word)
-    incongruent_color=random.choice(temp_stimuli) # randomly select incongruent key among non-answer keys
-
-    return incongruent_color
-
-trial_type=['c','ic']
+trial_types=['c','ic']
 
 while True:
     cur_word = random.choice(stimuli) #set the current stiuli(word)
-    trial=random.choice(trial_type)
+    trial=random.choice(trial_types)
 
     if trial =='c': #set the current stimuli(color)
         cur_color=cur_word
@@ -49,7 +43,7 @@ while True:
     win.flip()
     core.wait(.5) #and let that state stay removed for .5 seconds before the presentation of the stimuli
     placeholder.draw()
-    word_stim.draw() #draw placeholder, instruction, and stiuli
+    word_stim.draw() #draw placeholder, instruction, and stimuli
     win.flip()
     timer.reset() #start timing=reset the timer(right after we draw word_stim)
     keypress= event.waitKeys(keyList=['r','o','y','g','b','q'],maxWait=2)
