@@ -42,6 +42,10 @@ while True:
         win.close()
         core.quit()
     else:
+        if keypress[0]!=cur_stim:
+            feedback_incorrect.draw()
+            win.flip()
+            core.wait(1)
         RT.append(cur_rt) #append cur_rt to RT only when the key pressed is not 'q'
         print(RT)
 
