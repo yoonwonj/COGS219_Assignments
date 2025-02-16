@@ -11,6 +11,7 @@ placeholder = visual.Rect(win,width=180,height=80, fillColor="lightgray",lineCol
 word_stim = visual.TextStim(win,text="", height=40, color="black",pos=[0,0])
 instruction = visual.TextStim(win,text="Press the first letter of the ink color", height=20, color="black",pos=[0,-200])
 fixation_cross = visual.TextStim(win, text="+", height=15, color="black", pos=[0,0]) #set fixation cross: set height as 15 and color as black (as indicated in the instruction)
+feedback_incorrect= visual.TextStim(win,text="Incorrect", height=20, color="black", pos=[0,0])
 
 instruction.autoDraw = True
 
@@ -43,7 +44,5 @@ while True:
     else:
         RT.append(cur_rt) #append cur_rt to RT only when the key pressed is not 'q'
         print(RT)
-        placeholder.draw()
-        win.flip() #remove the stimuli
-        core.wait(.15) #let that state stay for .15 seconds
+
 
