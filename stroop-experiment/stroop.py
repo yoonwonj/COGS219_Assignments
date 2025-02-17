@@ -106,9 +106,9 @@ for cur_trial in trial_list:
             RT.append(cur_rt) #append cur_rt to RT only when the key pressed is not 'q'
             print(RT)
 
-    else: #if the key was not pressed
+    else: #if the key was not pressed within 2 sec
         cur_rt= np.nan #if it gets timeout, store cur_rt value as np.nan value (to prevent messing up the order of response time appended to RT)
-        is_correct= np.nan
+        is_correct= "timeout" #record is_correct variable as "timeout" if the key was not pressed within 2 sec
         write_responses(f, runtime_vars['subj_code'], runtime_vars['seed'], cur_word, cur_color, cur_trial_type, cur_orient, trial_num, cur_rt, is_correct, cur_rt)
         RT.append(cur_rt) #append nan value (for missing RT due to timeout)
         print(RT)
