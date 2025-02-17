@@ -4,7 +4,7 @@ import os
 import random
 import numpy as np
 from psychopy import visual,event,core,gui
-from functions import make_incongruent, generate_trials, get_runtime_vars, import_trials
+from functions import make_incongruent, generate_trials, get_runtime_vars, import_trials, write_responses
 
 win = visual.Window([800,600],color="gray", units='pix',checkTiming=False)
 placeholder = visual.Rect(win,width=180,height=80, fillColor="lightgray",lineColor="black", lineWidth=6,pos=[0,0])
@@ -31,11 +31,24 @@ print(runtime_vars)
 # generate trials
 generate_trials(runtime_vars['subj_code'],runtime_vars['seed'],stimuli,trial_types) # this line added in "Part2-runtie-variable" commit
 
+#initialize trial number
+trial_num=1
+
 # read in trial information
 script_dir = os.path.dirname(os.path.abspath(__file__))
 trial_path= os.path.join(script_dir,'trials',runtime_vars['subj_code']+'_trials.csv')
 trial_list = import_trials(trial_path)
 print(trial_list[:5])
+
+# prepare response file
+script_dir = os.path.dirname(os.path.abspath(__file__))
+try:
+    os.mkdir(os.path.join(script_dir,'data')) # file path fixed to match windows computer
+    print('Creating data directory')
+except FileExistsError:
+    print('Data directory exists; proceeding to open file')
+    
+f = open(os.path.join(script_dir,'data',runtime_vars['subj_code']+'_data.csv'),'w') # file path fixed to match windows computer
 
 # new loop
 for cur_trial in trial_list:
@@ -83,16 +96,20 @@ for cur_trial in trial_list:
         else: #if the key pressed was not q
             cur_rt= timer.getTime() #get response time (for button press)
             if keypress[0]!=cur_word[0]: #if the key pressed is incorrect
+                is_correct=0
                 feedback_incorrect.draw() #incorrect feedback
                 win.flip()
                 core.wait(1)
             else: #if it is correct
-                pass
+                is_correct=1
+            write_responses(f, runtime_vars['subj_code'], runtime_vars['seed'], cur_word, cur_color, cur_trial_type, cur_orient, trial_num, cur_rt, is_correct, cur_rt)
             RT.append(cur_rt) #append cur_rt to RT only when the key pressed is not 'q'
             print(RT)
+
     else: #if the key was not pressed
         cur_rt= np.nan #if it gets timeout, store cur_rt value as np.nan value (to prevent messing up the order of response time appended to RT)
-    #print(keypress)
+        is_correct= np.nan
+        write_responses(f, runtime_vars['subj_code'], runtime_vars['seed'], cur_word, cur_color, cur_trial_type, cur_orient, trial_num, cur_rt, is_correct, cur_rt)
         RT.append(cur_rt) #append nan value (for missing RT due to timeout)
         print(RT)
         feedback_slow.draw()
