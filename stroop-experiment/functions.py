@@ -98,10 +98,6 @@ def write_responses (f, subj_code, seed, cur_word, cur_color, cur_trial_type, cu
 
     separator=','
     
-    #write header
-    header = separator.join(["subj_code","seed","word", 'color','trial_type','orientation','trial_num','response','is_correct','rt']) # define header
-    
-    f.write(header+'\n') # start writing the response
     cur_response= [subj_code,seed,cur_word,cur_color,cur_trial_type,cur_orient, trial_num, response, is_correct, cur_rt]
 
     f.write(separator.join(map(str,cur_response))+'\n')
