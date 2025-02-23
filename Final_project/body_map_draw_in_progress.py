@@ -104,14 +104,14 @@ def convert_to_cv_coords(point, win_size, image_shape):
     px = int((point[0] + win_w / 2) / win_w * img_w)
     py = int((win_h / 2 - point[1]) / win_h * img_h)
     return px, py
-### end of ChatGPT generated code ###
 
 drawing_timer = core.Clock()
 drawing_timer.reset()
 
 while drawing_timer.getTime() <= max_time:
     mx, my = mouse.getPos()
-    px, py = convert_to_cv_coords((mx, my), window_size, image_shape)  # Convert to OpenCV coords (because )
+    # Convert to OpenCV coords (because shapes with flexible edges is hard to check if the mouse is inside the shape using Psychopy built-in function)
+    px, py = convert_to_cv_coords((mx, my), window_size, image_shape) 
     if cv2.pointPolygonTest(cv_contour, (px, py), False) >= 0:  # Check if the mouse is inside body
         if mouse.getPressed()[0]:  # If left mouse button is pressed
             paint_circle = visual.Circle(win, lineColor=None, fillColor="red", size=[10, 10], opacity=0.3, autoDraw=True)
@@ -119,7 +119,7 @@ while drawing_timer.getTime() <= max_time:
             #paint_circle_list.append(paint_circle)
 
     win.flip()
-### start of ChatGPT generated & manually modified code ###
+### end of ChatGPT generated & manually modified code ###
 
 # print(paint_circle_list)
 
