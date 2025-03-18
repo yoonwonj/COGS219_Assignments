@@ -1,10 +1,2 @@
 subj_code,seed,word,color,trial_type,orientation,trial_num,response,is_correct,rt
-stroop_101,123,blue,blue,ic,unrotated,1,b,1,0.4003626999910921
-stroop_101,123,yellow,blue,c,unrotated,1,y,1,0.6334290000086185
-stroop_101,123,red,yellow,c,upside_down,1,r,1,0.7092051999934483
-stroop_101,123,red,blue,c,unrotated,1,r,1,0.4099655000027269
-stroop_101,123,yellow,green,c,upside_down,1,y,1,0.8102388999832328
-stroop_101,123,red,red,ic,unrotated,1,r,1,0.4461946999945212
-stroop_101,123,blue,red,c,unrotated,1,nan,timeout,nan
-stroop_101,123,yellow,yellow,ic,unrotated,1,b,0,0.299502100009704
-stroop_101,123,orange,orange,ic,unrotated,1,r,0,0.9703558000037447
+stroop_101,123,blue,blue,ic,unrotated,1,nan,timeout,nan
